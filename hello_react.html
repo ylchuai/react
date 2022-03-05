@@ -13,25 +13,18 @@
 <script src="./js/react-dom.development.js" type="text/javascript"></script>
 <script src="./js/babel.js" type="text/javascript"></script>
 
-<!-- <script type="text/babel">
-    // JSX 创建虚拟DOM
-    // 创建虚拟DOM
-    // const VDOM = <h1 id="title">Hello,React</h1>
+<script type="text/babel">
     const VDOM = <h1 id="title">
         <span>Hello,React</span>
     </h1>
+    /**
+     * 关于虚拟DOM
+     * 1. 本质是Object
+     * 2. 虚拟DOM更轻量级，虚拟DOM在react内部使用，
+     * 3. 最终会被React转化为真实DOM
+     */
+    console.log('VDOM',VDOM);
     // 将虚拟DOM渲染到页面
-    ReactDOM.render(VDOM, document.querySelector('#test'));
-</script> -->
-<script type="text/javascript">
-    // JS 创建虚拟DOM
-    // const VDOM = 
-    // React.createElement('h1', {id: 'title'}, 'Hello,React');
-    const VDOM = 
-    React.createElement('h1', {id: 'title'}, React.createElement(
-        'span',{}, 'Hello,React'
-    ));
-
     ReactDOM.render(VDOM, document.querySelector('#test'));
 </script>
 </html>
