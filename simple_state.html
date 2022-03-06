@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <style type="text/css">
+        .myBg{
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="test"></div>
+</body>
+<script src="./js/react.development.js" type="text/javascript"></script>
+<script src="./js/react-dom.development.js" type="text/javascript"></script>
+<script src="./js/babel.js" type="text/javascript"></script>
+
+<script type="text/babel">
+    // 类组件的简写形式
+    class MyComponent extends React.Component{
+        // 状态直接声明
+        state = {
+            ishot: true,
+            wind: '微风',
+        }
+        // 方法采用赋值+箭头函数(保护this指向)的形式
+        change = () => {
+            this.setState({ishot: !this.state.ishot})
+        }
+        // render部分不变
+        render() {
+            const {ishot, wind} = this.state;
+            return (
+                <div>
+                    <h2 onClick={this.change}>今天天气很{ishot?'炎热':'凉爽'}</h2>
+                    <p>风速：{wind}</p>    
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<MyComponent/>, document.querySelector('#test'));
+    class Car{}
+    const c1 = new Car()
+</script>
+</html>
