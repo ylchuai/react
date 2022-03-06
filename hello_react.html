@@ -21,13 +21,44 @@
 <script type="text/babel">
     // 类式组件
     class MyComponent extends React.Component{
+        constructor(props) {
+            // MyComponent的实例
+            super(props);
+            const ishot = true,
+                wind = '微风';
+            this.state = {
+                ishot,
+                wind,
+            }
+            // 2. 将this重新指向定义的方法
+            this.change = this.change.bind(this);
+        }
         render() {
-            console.log(this);// MyComponent的实例
+            // 初始化时会立刻调用一次
+            console.log('render', this);// MyComponent的实例
+            const {ishot, wind} = this.state;
             return (
-                <h2>这是一个类式组件</h2>
+                // 事件on-event event首字母大写
+                // 调用this上的方法
+                <div>
+                    <h2 onClick={this.change}>今天天气很{ishot?'炎热':'凉爽'}</h2>
+                    <p>风速：{wind}</p>    
+                </div>
             )
+        }
+        // 1. 创建方法
+        change(){
+            const ishot = !this.state.ishot
+            // 修改状态(数据)需要借助内置API,setState
+            // 这里setState是进行该属性的合并
+            // 不会影响其他属性(非替换)
+            // 每次更新状态都会重新调用render
+            this.setState({ishot})
         }
     }
     ReactDOM.render(<MyComponent/>, document.querySelector('#test'));
+    /*
+    复杂组件与简单组件：无状态(state)的组件称为简单那组件
+    */
 </script>
 </html>
