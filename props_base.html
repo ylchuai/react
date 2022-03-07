@@ -23,6 +23,13 @@
 <script type="text/babel">
     // 类式组件
     class MyComponent extends React.Component{
+        constructor(props) {
+            // 构造器是否接收props 是否传递给super
+            // 取决于是否希望在构造器中通过this访问props
+            console.log(props)
+            super(props);
+            console.log(this.props)
+        }
         render() {
             const {name, gender, age} = this.props;
             return (
