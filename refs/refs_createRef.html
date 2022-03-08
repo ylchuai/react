@@ -20,13 +20,13 @@
                 <div>
                     <input ref={this.MyRef} type="text" placeholder="Click to show data"/>&nbsp;
                     <button onClick={this.showData}>click show left data</button>&nbsp;
-                    <input ref={this.MyRef} type="text" placeholder="Click to show data"/>&nbsp;
                 </div>
             )
         }
-        showData = () => {
+        showData = (e) => {
+            console.log(e, e.currentTarget, e.clientX)
             console.log(this.MyRef);
-            confirm(this.MyRef.value)
+            confirm(this.MyRef.current.value)
         }
         // 调用后可以返回一个容器，存储呗ref标记的节点
         // 只会存储最新的一个值，若重复使用，则会抛弃旧值
