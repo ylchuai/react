@@ -15,20 +15,30 @@
 
 <script type="text/babel">
     class Demo extends React.Component {
+        state={
+            ishot: true
+        }
         render() {
             return(
                 <div>
-                    <input ref={currentNode=>this.input1=currentNode} type="text" placeholder="Click to show data"/>&nbsp;
+                    <div onClick={()=>{this.setState({ishot: !this.state.ishot}) }}>{this.state.ishot? 'hot': 'cold'}</div>
+                    <input ref={currentNode=>{this.input1=currentNode; console.log('@', currentNode)}} type="text" placeholder="Click to show data"/>&nbsp;
                     <button onClick={this.showData}>click show left data</button>&nbsp;
-                    <input onBlur={this.showOnBlur}  ref={currentNode=>this.input2=currentNode} type="text" placeholder="Blur to show data"/>
+                    <input onBlur={this.showOnBlur}  ref={this.getInput2} type="text" placeholder="Blur to show data"/>
                 </div>
             )
         }
+        // 内联ref函数会在render调用时执行两次 第一次传入null 第二次传入正常的节点
         showData = () => {
             confirm(this.input1.value)
         }
         showOnBlur = () => {
             confirm(this.input2.value)
+        }
+        // 非内联ref函数会在render调用时不会重复执行
+        getInput2 = currentNode => {
+            this.input2=currentNode;
+            console.log('@2',currentNode)
         }
     }
 
