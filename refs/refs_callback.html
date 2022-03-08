@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body>
+    <div id="test"></div>
+</body>
+<script src="../js/react.development.js" type="text/javascript"></script>
+<script src="../js/react-dom.development.js" type="text/javascript"></script>
+<script src="../js/babel.js" type="text/javascript"></script>
+
+<script type="text/babel">
+    class Demo extends React.Component {
+        render() {
+            return(
+                <div>
+                    <input ref={currentNode=>this.input1=currentNode} type="text" placeholder="Click to show data"/>&nbsp;
+                    <button onClick={this.showData}>click show left data</button>&nbsp;
+                    <input onBlur={this.showOnBlur}  ref={currentNode=>this.input2=currentNode} type="text" placeholder="Blur to show data"/>
+                </div>
+            )
+        }
+        showData = () => {
+            confirm(this.input1.value)
+        }
+        showOnBlur = () => {
+            confirm(this.input2.value)
+        }
+    }
+
+    ReactDOM.render(<Demo/>, document.querySelector('#test'));
+</script>
+</html>
