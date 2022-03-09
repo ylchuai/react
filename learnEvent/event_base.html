@@ -31,9 +31,9 @@
                 <form action="http://www.baidu.com"
                     onSubmit={this.submitHandle}>
                     <label htmlFor="user">用户名</label>
-                    <input onBlur={e => this.data.userName = e.target.value} type="text" name="user"/><br/>
+                    <input onBlur={this.saveFormData('userName')} type="text" name="user"/><br/>
                     <label htmlFor="pwd">密码</label>
-                    <input onBlur={e => this.data.password = e.target.value} type="password" name="pwd"/><br/>
+                    <input onBlur={this.saveFormData('password')} type="password" name="pwd"/><br/>
                     <button>提交</button>
                 </form>
             )
@@ -42,15 +42,10 @@
         submitHandle = (e) => {
             console.log(e)
             e.preventDefault(); // 阻止默认事件
-            const {userName, password} = this.data;
+            const {userName, password} = this.state;
             confirm(`userName ${userName}, password ${password}`)
         }
-        // getUserName = (e) => {
-        //     this.data.userName = e.target.value;
-        // }
-        // getPassword = (e) => {
-        //     this.data.password = e.target.value;
-        // }
+        saveFormData = (key) => e => this.setState({[key]: e.target.value})
     }
 
     ReactDOM.render(<Login/>, document.querySelector('#test'));
