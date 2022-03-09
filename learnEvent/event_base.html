@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react中的事件处理-收集表单数据</title>
+</head>
+<body>
+    <div id="test"></div>
+</body>
+<script src="../js/react.development.js" type="text/javascript"></script>
+<script src="../js/react-dom.development.js" type="text/javascript"></script>
+<script src="../js/babel.js" type="text/javascript"></script>
+<style>
+    label {
+        width: 10vw;
+        display: inline-block;
+    }
+</style>
+<script type="text/babel">
+    /*
+        非受控组件：输入类的dom称为非受控组件，特点是现用现取。
+
+        受控组件：获取的数据一般式异步的。在事件触发时数据已经准备好了
+        受控组件存储到状态中就实现了双向数据绑定
+    */
+    class Login extends React.Component {
+        render() {
+            return(
+                <form action="http://www.baidu.com"
+                    onSubmit={this.submitHandle}>
+                    <label htmlFor="user">用户名</label>
+                    <input onBlur={e => this.data.userName = e.target.value} type="text" name="user"/><br/>
+                    <label htmlFor="pwd">密码</label>
+                    <input onBlur={e => this.data.password = e.target.value} type="password" name="pwd"/><br/>
+                    <button>提交</button>
+                </form>
+            )
+        }
+        data = {};
+        submitHandle = (e) => {
+            console.log(e)
+            e.preventDefault(); // 阻止默认事件
+            const {userName, password} = this.data;
+            confirm(`userName ${userName}, password ${password}`)
+        }
+        // getUserName = (e) => {
+        //     this.data.userName = e.target.value;
+        // }
+        // getPassword = (e) => {
+        //     this.data.password = e.target.value;
+        // }
+    }
+
+    ReactDOM.render(<Login/>, document.querySelector('#test'));
+</script>
+</html>
