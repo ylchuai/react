@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body>
+    <div id="test"></div>
+</body>
+<script src="../js/react.development.js" type="text/javascript"></script>
+<script src="../js/react-dom.development.js" type="text/javascript"></script>
+<script src="../js/babel.js" type="text/javascript"></script>
+
+<script type="text/babel">
+    class Count extends React.Component{
+        /* 挂载流程 */
+        constructor(props) {
+            console.log('1_constructor')
+            super(props)
+            this.state = {
+                count: 0
+            }
+            this.add = () => {
+                const {count} = this.state;
+                this.setState({count: count+1})
+            }
+            this.death = () => {
+                ReactDOM.unmountComponentAtNode(document.querySelector('#test'))
+            }
+        }
+        // componentWillMount() {
+        //     console.log('componentWillMount')
+        // }
+        UNSAFE_componentWillMount() {
+            console.log('UNSAFE_componentWillMount')
+        }
+        componentDidMount() {
+            console.log('3_componentDidMount');
+        }
+        /* 挂载流程 结束*/
+
+        componentWillUnmount() {
+            console.log('4_componentWillUnmount')
+        }
+        render() {
+            console.log('2_render')
+            const {count} = this.state;
+            return (
+                <div>
+                    <h2>Count: {count}</h2>
+                    <button onClick={this.add}>+1</button>
+                    <button onClick={this.death}>death</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Count/>, document.querySelector('#test'));
+</script>
+</html>
