@@ -23,10 +23,15 @@
             }
             this.add = () => {
                 const {count} = this.state;
+                // 触发 -> shouldComponentUpdate -> componentWillUpdate -> render -> componentDidUpdate
                 this.setState({count: count+1})
             }
             this.death = () => {
                 ReactDOM.unmountComponentAtNode(document.querySelector('#test'))
+            }
+            this.force = () => {
+                // 触发 -> componentWillUpdate -> render -> componentDidUpdate
+                this.forceUpdate();
             }
         }
         
@@ -61,6 +66,7 @@
                 <div>
                     <h2>Count: {count}</h2>
                     <button onClick={this.add}>+1</button>
+                    <button onClick={this.force}>update</button>
                     <button onClick={this.death}>death</button>
                 </div>
             )
