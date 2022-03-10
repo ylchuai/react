@@ -50,15 +50,18 @@
         // 若返回null则对原有状态对象不做任何改变
         static getDerivedStateFromProps(props, state) {
             console.log('before render');
-            console.log('getDerivedStateFromProps', nextProps, prevState)
+            console.log('getDerivedStateFromProps', props, state)
             return null;
         }
-        getSnapshotBeforeUpdate(prevProps, prevState) {
-            console.log('getSnapshotBeforeUpdate', prevProps, prevState)
-            return null;
+        
+        // 获取更新前的props和state，并返回一个快照值
+        // 该快照值会作为componentDidUpdate的第三个参数
+        getSnapshotBeforeUpdate(preProps, preState) {
+            console.log('getSnapshotBeforeUpdate', preProps, preState)
+            return 'snapshotValue';
         }
-        componentDidUpdate() {
-            console.log('4_componentDidUpdate');
+        componentDidUpdate(props, state, snapshotValue) {
+            console.log('4_componentDidUpdate', props, state, snapshotValue);
         }
         /* 更新流程 结束*/
         render() {
@@ -74,7 +77,7 @@
             )
         }
     }
-    ReactDOM.render(<Count/>, document.querySelector('#test'));
+    ReactDOM.render(<Count base={10}/>, document.querySelector('#test'));
     
 </script>
 </html>
