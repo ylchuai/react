@@ -1,12 +1,12 @@
-
-import './APP.css'
 import React, { Component } from 'react'
-import TodoList from './components/TodoList'
+import Todolist from './components/Todolist'
 
 export default class App extends Component {
   render() {
     return (
-      <TodoList />
+      <div>
+        <Todolist />
+      </div>
     )
   }
 }
