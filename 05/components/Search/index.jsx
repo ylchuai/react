@@ -1,8 +1,11 @@
+import PropTypes from "prop-types";
 import axios from "axios";
 import React, { Component } from "react";
-import PubSub from "pubsub-js";
 
 export default class Search extends Component {
+  static propTypes = {
+    getUserList: PropTypes.func.isRequired
+  };
 
   render() {
     return (
@@ -23,12 +26,10 @@ export default class Search extends Component {
   }
   // keywordElement = React.createRef();
   searchHandle = () => {
-    PubSub.publish('getUserList', {
-      userlist: [],
-      status: 'loading'
-    })
+    this.props.getUserList([], "loading");
+    // const { value } = this.keywordElement.current;
     const {keywordElement: {value}} = this;
-    axios.get('https://api.github.com/search/users?q=' + value).then(value => {
+    axios.get('https://api.1github.com/search/users?q=' + value).then(value => {
       const userlist = value.data.items.map((item) => {
         return {
           id: item.id,
@@ -38,21 +39,12 @@ export default class Search extends Component {
         };
       });
       if (userlist.length) {
-        PubSub.publish('getUserList', {
-          userlist: userlist,
-          status: ''
-        })
+        this.props.getUserList(userlist);
       } else {
-        PubSub.publish('getUserList', {
-          userlist: [],
-          status: 'empty'
-        })
+        this.props.getUserList([], "empty");
       }
     }).catch(err => {
-      PubSub.publish('getUserList', {
-        userlist: [],
-        status: 'error'
-      })
+      this.props.getUserList([], 'error');
       console.log(err);
     });
   };

@@ -1,27 +1,12 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
-import PubSub from "pubsub-js";
 
 export default class List extends Component {
-  state = {
-    userList: [],
-    status: 'first'
-  }
-  // 挂载时注册一个订阅
-  componentDidMount() {
-    PubSub.subscribe('getUserList', (msg, data) => {
-      this.setState({
-        userList: data.userlist,
-        status: data.status
-      })
-    });
-  }
-
-  // 卸载前取消订阅
-  componentWillUnmount() {
-    PubSub.unsubscribe('getUserList');
+  static propTypes = {
+    userList: PropTypes.array.isRequired
   }
   render() {
-    const { userList, status } = this.state;
+    const { userList, status } = this.props;
     const getEmptyMsg = () => {
       switch (status) {
         case 'first':
@@ -36,6 +21,7 @@ export default class List extends Component {
           break;
       }
     }
+    console.log(getEmptyMsg())
     return (
       <div className="row">
         {
