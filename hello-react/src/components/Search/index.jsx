@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Component } from "react";
 import PubSub from "pubsub-js";
 
@@ -21,15 +20,65 @@ export default class Search extends Component {
       </section>
     );
   }
-  // keywordElement = React.createRef();
-  searchHandle = () => {
+  /* Promise形式使用fetch */
+  // searchHandle = () => {
+  //   PubSub.publish('getUserList', {
+  //     userlist: [],
+  //     status: 'loading'
+  //   })
+  //   const {keywordElement: {value}} = this;
+    
+  //   fetch('https://api.github.com/search1/users?q=' + value)
+  //     .then(res => {
+  //       return res.json();
+  //     })
+  //     .then(value => {
+  //       const userlist = value.items.map((item) => {
+  //         return {
+  //           id: item.id,
+  //           img: item.avatar_url,
+  //           userName: item.login,
+  //           homePage: item.html_url,
+  //         };
+  //       });
+  //       if (userlist.length) {
+  //         return {
+  //           status: '',
+  //           userlist: userlist,
+  //         }
+  //       } else {
+  //         return {
+  //           userlist: [],
+  //           status: 'empty'
+  //         }
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       return {
+  //         userlist: [],
+  //         status: 'error'
+  //       }
+  //     })
+  //     .finally(res => {
+  //       PubSub.publish('getUserList', res);
+  //     });
+  // };
+
+  /* async await 的方式使用fetch */
+  searchHandle = async () => {
     PubSub.publish('getUserList', {
       userlist: [],
       status: 'loading'
     })
     const {keywordElement: {value}} = this;
-    axios.get('https://api.github.com/search/users?q=' + value).then(value => {
-      const userlist = value.data.items.map((item) => {
+    
+    let sendMsg = {};
+    try {
+      const res = await fetch('https://api.github.com/search/users?q=' + value);
+      const data = await res.json();
+      console.log(data)
+      const userlist = data.items.map((item) => {
         return {
           id: item.id,
           img: item.avatar_url,
@@ -38,22 +87,24 @@ export default class Search extends Component {
         };
       });
       if (userlist.length) {
-        PubSub.publish('getUserList', {
+        sendMsg = {
+          status: '',
           userlist: userlist,
-          status: ''
-        })
+        }
       } else {
-        PubSub.publish('getUserList', {
+        sendMsg = {
+          status: 'empty',
           userlist: [],
-          status: 'empty'
-        })
+        }
       }
-    }).catch(err => {
-      PubSub.publish('getUserList', {
+    } catch (e) {
+      console.error(e)
+      sendMsg = {
         userlist: [],
         status: 'error'
-      })
-      console.log(err);
-    });
+      }
+    } finally {
+      PubSub.publish('getUserList', sendMsg);
+    }
   };
 }
