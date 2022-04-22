@@ -8,7 +8,7 @@ export default class MyLink extends Component {
     // const { to, children } = this.props;
     return (
       // <NavLink activeClassName="myactive" className="list-group-item" to={to} >{children}</NavLink>
-      <NavLink activeClassName="myactive" className="list-group-item" {...this.props} />
+      <NavLink exact activeClassName="myactive" className="list-group-item" {...this.props} />
     )
   }
 }

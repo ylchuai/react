@@ -7,6 +7,7 @@ import Home from '../Home';
 import About from '../About';
 import MyLink from "../../components/MyLink";
 import { Switch } from "react-router-dom";
+import tpage from "../TPage";
 
 export default class Rpage extends Component {
   render() {
@@ -20,13 +21,15 @@ export default class Rpage extends Component {
               <a className="list-group-item" href="./home.html">Home</a> */}
               {/* <NavLink activeStyle={{"background": "lightblue"}} to="/about" className="list-group-item">About</NavLink>
               <NavLink activeClassName="active" to="/home" className="list-group-item">Home</NavLink> */}
-              <MyLink to="/a/about">About</MyLink>
-              <MyLink to="/a/home">Home</MyLink>
+              <MyLink to="/about">About</MyLink>
+              <MyLink to="/home">Home</MyLink>
+              <MyLink to="/home/test">Tpage</MyLink>
             </div>
           </div>
           <Switch>
-            <Route path="/a/about" component={About} />
-            <Route path="/a/home" component={Home} />
+            <Route path="/about" component={About} />
+            <Route exact path="/home" component={Home} />
+            <Route path="/home/test" component={tpage} />
           </Switch>
         </div>
       </div>
