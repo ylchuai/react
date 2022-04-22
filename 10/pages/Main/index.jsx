@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
-import PageHeader from '../Pageheader';
+import PageHeader from '../../components/Pageheader';
 
-import Home from '../../pages/Home';
-import About from '../../pages/About';
+import Home from '../Home';
+import About from '../About';
+import MyLink from "../../components/MyLink";
 
 export default class Rpage extends Component {
   render() {
@@ -16,8 +17,10 @@ export default class Rpage extends Component {
             <div className="list-group">
               {/* <a className="list-group-item active" href="./about.html">About</a>
               <a className="list-group-item" href="./home.html">Home</a> */}
-              <Link to="/about" className="list-group-item">About</Link>
-              <Link to="/home" className="list-group-item">Home</Link>
+              {/* <NavLink activeStyle={{"background": "lightblue"}} to="/about" className="list-group-item">About</NavLink>
+              <NavLink activeClassName="active" to="/home" className="list-group-item">Home</NavLink> */}
+              <MyLink to="/about">About</MyLink>
+              <MyLink to="/home">Home</MyLink>
             </div>
           </div>
           <Route path="/about" component={About} />
