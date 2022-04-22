@@ -8,6 +8,7 @@ import About from '../About';
 import MyLink from "../../components/MyLink";
 import { Switch } from "react-router-dom";
 import tpage from "../TPage";
+import { Redirect } from "react-router-dom";
 
 export default class Rpage extends Component {
   render() {
@@ -30,6 +31,7 @@ export default class Rpage extends Component {
             <Route path="/about" component={About} />
             <Route exact path="/home" component={Home} />
             <Route path="/home/test" component={tpage} />
+            <Redirect to="/home" />
           </Switch>
         </div>
       </div>
