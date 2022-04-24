@@ -24,14 +24,14 @@ export default class Rpage extends Component {
               <NavLink activeClassName="active" to="/home" className="list-group-item">Home</NavLink> */}
               <MyLink to="/about">About</MyLink>
               <MyLink to="/home">Home</MyLink>
-              <MyLink to="/test">Tpage</MyLink>
+              <MyLink to="/home/test">Tpage</MyLink>
             </div>
           </div>
           <Switch>
             <Route path="/about" component={About} />
-            <Route path="/home" component={Home} />
-            <Route path="/test" component={tpage} />
-            <Redirect to="/about" />
+            <Route exact path="/home" component={Home} />
+            <Route path="/home/test" component={tpage} />
+            <Redirect to="/home" />
           </Switch>
         </div>
       </div>
